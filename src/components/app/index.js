@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import Canvas from "../canvas";
+import './index.css';
+
 
 class App extends Component {
   render() {
@@ -8,9 +10,7 @@ class App extends Component {
         <div>
           <h2>Red Ball</h2>
         </div>
-        <div className="box">
-          <div className="ball"></div>
-        </div>
+        <Canvas />
       </div>
     );
   }
