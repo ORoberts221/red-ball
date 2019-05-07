@@ -1,0 +1,18 @@
+.ball {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background-color:  red;
+  border: 1px solid #222;
+}
+
+.box {
+  border: 1px solid #222;
+  margin: auto;
+  width: 500px;
+  height: 500px;
+}
+
+.container {
+  text-align: center;
+}
