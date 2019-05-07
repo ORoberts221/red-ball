@@ -1,8 +1,8 @@
 import Matter from "matter-js";
-import DrawBall from "../components/matter/ball";
-import DrawGround from "../components/matter/ground";
+import Ball from "../components/matter/ball";
+import Ground from "../components/matter/ground";
 
-// module aliases
+//Module aliases
 var Engine = Matter.Engine,
     Render = Matter.Render,
     World = Matter.World,
@@ -39,7 +39,7 @@ function createMouseDragConstraint() {
             }
         });
 
-    return mouseConstraint;
+    World.add(engine.world, mouseConstraint);
 }
 
 export default function setup() {
@@ -49,21 +49,13 @@ export default function setup() {
     //Create engine
     engine = Engine.create();
 
-    ball = DrawBall(c.width / 2, c.height / 2);
-    var ground = DrawGround(0, 495);
+    ball = new Ball(engine.world, c.width / 2, c.height / 2);
+    var ground = new Ground(engine.world, 0, 495);
 
     render = createRender(c);
 
     //Add mouse constraint
-    var mouse = createMouseDragConstraint();
-
-
-    // Add the bodies to the world
-    World.add(engine.world, [
-        mouse,
-        ball,
-        ground
-    ]);
+    createMouseDragConstraint();
 
     // run the engine
     Engine.run(engine);
