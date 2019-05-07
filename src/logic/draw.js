@@ -14,10 +14,10 @@ export default function draw() {
     var engine = Engine.create();
 
     // create a circle
-    var ball = Bodies.circle(450, 25, 50);
+    var ball = Bodies.circle(c.width / 2, c.height / 2, 25);
 
     //create the ground
-    var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    var ground = Bodies.rectangle(0, 450, 1000, 0.5, { isStatic: true });
 
     // add the bodies to the world
     World.add(engine.world, [ball, ground]);
@@ -30,7 +30,7 @@ export default function draw() {
         canvas: c,
         options: {
             width: c.width,
-            height: c.height
+            height: c.height,
         },
         engine: engine
     });
