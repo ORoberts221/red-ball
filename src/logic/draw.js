@@ -1,4 +1,6 @@
 import Matter from "matter-js";
+import DrawBall from "../components/matter/ball";
+import DrawGround from "../components/matter/ground";
 
 // module aliases
 var Engine = Matter.Engine,
@@ -11,25 +13,6 @@ var Engine = Matter.Engine,
 var engine;
 var render;
 var ball;
-
-function drawBall(x, y) {
-    return Bodies.circle(x, y, 25, {
-        friction: 0.0025,
-        restitution: 0.8,
-        render: {
-            fillStyle: 'red',
-        }
-    });
-}
-
-function drawGround() {
-    return Bodies.rectangle(0, 495, 1000, 20, {
-        isStatic: true,
-        render: {
-            fillStyle: '#222'
-        }
-    });
-}
 
 function createRender(canvas) {
     return Render.create({
@@ -59,15 +42,15 @@ function createMouseDragConstraint() {
     return mouseConstraint;
 }
 
-function setup() {
+export default function setup() {
     //Get canvas
     var c = document.getElementById("canvas");
 
     //Create engine
     engine = Engine.create();
 
-    ball = drawBall(c.width / 2, c.height / 2);
-    var ground = drawGround();
+    ball = DrawBall(c.width / 2, c.height / 2);
+    var ground = DrawGround(0, 495);
 
     render = createRender(c);
 
@@ -89,8 +72,3 @@ function setup() {
     Render.run(render);
 }
 
-
-
-export default function draw() {
-    setup();
-}
