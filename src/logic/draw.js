@@ -18,6 +18,7 @@ export default function draw() {
     // create a circle
     var ball = Bodies.circle(c.width / 2, c.height / 2, 25, {
         friction: 0.0025,
+        restitution: 0.8,
         render: {
             fillStyle: 'red',
         }
@@ -26,6 +27,7 @@ export default function draw() {
     //create the ground
     var ground = Bodies.rectangle(0, 495, 1000, 10, {
         isStatic: true,
+        restitution: 0.8,
         render: {
             fillStyle: '#222'
         }
