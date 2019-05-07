@@ -1,50 +1,50 @@
 import Matter from "matter-js";
 
-export default function draw() {
-    var c = document.getElementById("canvas");
-    var ctx = c.getContext("2d");
+// module aliases
+var Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Bodies = Matter.Bodies,
+    Mouse = Matter.Mouse,
+    MouseConstraint = Matter.MouseConstraint;
 
-    // module aliases
-    var Engine = Matter.Engine,
-        Render = Matter.Render,
-        World = Matter.World,
-        Bodies = Matter.Bodies,
-        Mouse = Matter.Mouse,
-        MouseConstraint = Matter.MouseConstraint;
+var engine;
+var render;
+var ball;
 
-    // create an engine
-    var engine = Engine.create();
-
-    // create a circle
-    var ball = Bodies.circle(c.width / 2, c.height / 2, 25, {
+function drawBall(x, y) {
+    return Bodies.circle(x, y, 25, {
         friction: 0.0025,
         restitution: 0.8,
         render: {
             fillStyle: 'red',
         }
     });
+}
 
-    //create the ground
-    var ground = Bodies.rectangle(0, 495, 1000, 20, {
+function drawGround() {
+    return Bodies.rectangle(0, 495, 1000, 20, {
         isStatic: true,
         render: {
             fillStyle: '#222'
         }
     });
+}
 
-    // create a renderer
-    var render = Render.create({
-        canvas: c,
+function createRender(canvas) {
+    return Render.create({
+        canvas: canvas,
         options: {
-            width: c.width,
-            height: c.height,
+            width: canvas.width,
+            height: canvas.height,
             wireframes: false,
             background: '#ffffff'
         },
         engine: engine
     });
+}
 
-    //Add mouse constraint
+function createMouseDragConstraint() {
     var mouse = Mouse.create(render.canvas),
         mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
@@ -56,10 +56,28 @@ export default function draw() {
             }
         });
 
+    return mouseConstraint;
+}
 
-    // add the bodies to the world
+function setup() {
+    //Get canvas
+    var c = document.getElementById("canvas");
+
+    //Create engine
+    engine = Engine.create();
+
+    ball = drawBall(c.width / 2, c.height / 2);
+    var ground = drawGround();
+
+    render = createRender(c);
+
+    //Add mouse constraint
+    var mouse = createMouseDragConstraint();
+
+
+    // Add the bodies to the world
     World.add(engine.world, [
-        mouseConstraint,
+        mouse,
         ball,
         ground
     ]);
@@ -69,4 +87,10 @@ export default function draw() {
 
     // run the renderer
     Render.run(render);
+}
+
+
+
+export default function draw() {
+    setup();
 }
