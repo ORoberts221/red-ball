@@ -1,12 +1,15 @@
 import React from "react";
+import draw from "../../logic/draw";
 import "./index.css";
 
 class Canvas extends React.Component {
+    componentDidMount(){
+        draw();
+    }
+
     render(){
         return(
-            <div id="canvas" className="canvas">
-
-            </div>
+            <canvas id="canvas" className="canvas"></canvas>
         );
     }
 }
