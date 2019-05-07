@@ -25,9 +25,8 @@ export default function draw() {
     });
 
     //create the ground
-    var ground = Bodies.rectangle(0, 495, 1000, 10, {
+    var ground = Bodies.rectangle(0, 495, 1000, 20, {
         isStatic: true,
-        restitution: 0.8,
         render: {
             fillStyle: '#222'
         }
