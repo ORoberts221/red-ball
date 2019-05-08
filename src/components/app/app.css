@@ -1,8 +1,15 @@
 .canvas {
+  position: relative;
+  z-index: 1;
   border: 1px solid #222;
   margin: auto;
 }
 
 .container {
   text-align: center;
+}
+
+.header {
+  position: relative;
+  z-index: 10;
 }
