@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import Matter from 'matter-js';
 import Ball from '../../matter/bodies/ball';
 import Drag from '../../matter/constraints/drag';
+import createRender from '../../matter/render/render';
 import './index.css';
-
-function run(engine, render) {
-  // run the engine
-  Matter.Engine.run(engine);
-
-  // run the renderer
-  Matter.Render.run(render);
-}
 
 class App extends Component {
   constructor(props) {
@@ -18,40 +11,31 @@ class App extends Component {
     this.state = { engine: Matter.Engine.create() }
   }
 
+  run(engine, render) {
+    Matter.Engine.run(engine);
+    Matter.Render.run(render);
+  }
+
   componentDidMount() {
-    //get canvas
-    var c = document.getElementById("canvas");
+    var canvas = document.getElementById("canvas");
 
     //create ball
-    var ball = Matter.Bodies.circle(c.width / 2, c.height / 2, 25, {
-      friction: 0.0025,
-      restitution: 0.8,
-      render: {
-        fillStyle: 'red',
-      }
-    });
+    var ball = new Ball(canvas.width / 2, canvas.height / 2);
+    //create drag constraint
+    var dragConstraint = Drag(canvas, this.state.engine);
 
-    //add additional bodies to the world
+    //Add bodies to the world
     Matter.World.add(this.state.engine.world, [
       ball,
-      Drag(c, this.state.engine),
+      dragConstraint,
+      //Add the ground
       Matter.Bodies.rectangle(0, 495, 1000, 20, { isStatic: true, render: { fillStyle: '#222' } })
     ]);
 
     //create renderer
-    var render = Matter.Render.create({
-      canvas: c,
-      options: {
-        width: c.width,
-        height: c.height,
-        wireframes: false,
-        background: '#ffffff'
-      },
-      engine: this.state.engine
-    });
+    var render = createRender(canvas, this.state.engine);
 
-    //run the world
-    run(this.state.engine, render);
+    this.run(this.state.engine, render);
   }
 
   render() {

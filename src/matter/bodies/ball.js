@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 
-export default function Ball(world, x, y){
+export default function Ball(x, y){
     this.body = Matter.Bodies.circle(x, y, 25, {
         friction: 0.0025,
         restitution: 0.8,
@@ -9,5 +9,5 @@ export default function Ball(world, x, y){
         }
     });
 
-    Matter.World.add(world, this.body);
+    return this.body;
 }
