@@ -3,7 +3,7 @@ import Matter from 'matter-js';
 import Ball from '../../matter/bodies/ball';
 import Drag from '../../matter/constraints/drag';
 import createRender from '../../matter/renderers/render';
-import './index.css';
+import './app.css';
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class App extends Component {
     this.setupWorld(canvas);
     var renderer = createRender(canvas, this.state.engine);
     this.run(renderer);
+
   }
 
   render() {
