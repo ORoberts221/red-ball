@@ -1,5 +1,6 @@
 import Matter from "matter-js";
-import Ball from "../components/matter/ball";
+import Ball from "../matter/bodies/ball";
+import Drag from "../matter/constraints/drag";
 
 //Module aliases
 var Engine = Matter.Engine,
@@ -26,21 +27,6 @@ function createRender(canvas) {
     });
 }
 
-function createMouseDragConstraint() {
-    var mouse = Mouse.create(render.canvas),
-        mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.2,
-                render: {
-                    visible: false
-                }
-            }
-        });
-
-    World.add(engine.world, mouseConstraint);
-}
-
 export default function setup() {
     //Get canvas
     var c = document.getElementById("canvas");
@@ -50,15 +36,14 @@ export default function setup() {
 
     //Generate bodies
     ball = new Ball(engine.world, c.width / 2, c.height / 2);
+    var dragConstraint = Drag(c, engine);
 
     World.add(engine.world, [
+        dragConstraint,
         Bodies.rectangle(0, 495, 1000, 20, { isStatic: true, render: { fillStyle: '#222' }})
     ]);
 
     render = createRender(c);
-
-    //Add mouse constraint
-    createMouseDragConstraint();
 
     // run the engine
     Engine.run(engine);
