@@ -47,7 +47,7 @@ class App extends Component {
         <canvas id="canvas" className="canvas" width="500" height="500"></canvas>
         <div>
           <a href="">refresh</a><br /><br />
-          <a href="./">back</a>
+          <a href="../">back</a>
         </div>
       </div>
     );
