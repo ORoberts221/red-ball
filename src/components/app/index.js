@@ -8,34 +8,32 @@ import './index.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { engine: Matter.Engine.create() }
+    this.state = {
+      engine: Matter.Engine.create()
+    }
   }
 
-  run(engine, render) {
-    Matter.Engine.run(engine);
-    Matter.Render.run(render);
+  setupWorld(canvas) {
+    //create ball
+    var ball = new Ball(canvas.width / 2, canvas.height / 2);
+    //create ground
+    var ground = Matter.Bodies.rectangle(0, 495, canvas.width * 2, 20, { isStatic: true, render: { fillStyle: '#222' } });
+    //create drag constraint
+    var dragConstraint = Drag(canvas, this.state.engine);
+
+    Matter.World.add(this.state.engine.world, [ball, ground, dragConstraint]);
+  }
+
+  run(renderer) {
+    Matter.Engine.run(this.state.engine);
+    Matter.Render.run(renderer);
   }
 
   componentDidMount() {
     var canvas = document.getElementById("canvas");
-
-    //create ball
-    var ball = new Ball(canvas.width / 2, canvas.height / 2);
-    //create drag constraint
-    var dragConstraint = Drag(canvas, this.state.engine);
-
-    //Add bodies to the world
-    Matter.World.add(this.state.engine.world, [
-      ball,
-      dragConstraint,
-      //Add the ground
-      Matter.Bodies.rectangle(0, 495, 1000, 20, { isStatic: true, render: { fillStyle: '#222' } })
-    ]);
-
-    //create renderer
-    var render = createRender(canvas, this.state.engine);
-
-    this.run(this.state.engine, render);
+    this.setupWorld(canvas);
+    var renderer = createRender(canvas, this.state.engine);
+    this.run(renderer);
   }
 
   render() {
