@@ -47,6 +47,7 @@ class App extends Component {
         <canvas id="canvas" className="canvas" width="500" height="500"></canvas>
         <div>
           <a href="">refresh</a><br /><br />
+          <a href="https://github.com/ORoberts221/red-ball">source code</a><br /><br />
           <a href="../">back</a>
         </div>
       </div>
