@@ -1,6 +1,5 @@
 import Matter from "matter-js";
 import Ball from "../components/matter/ball";
-import Ground from "../components/matter/ground";
 
 //Module aliases
 var Engine = Matter.Engine,
@@ -49,8 +48,12 @@ export default function setup() {
     //Create engine
     engine = Engine.create();
 
+    //Generate bodies
     ball = new Ball(engine.world, c.width / 2, c.height / 2);
-    var ground = new Ground(engine.world, 0, 495);
+
+    World.add(engine.world, [
+        Bodies.rectangle(0, 495, 1000, 20, { isStatic: true, render: { fillStyle: '#222' }})
+    ]);
 
     render = createRender(c);
 
