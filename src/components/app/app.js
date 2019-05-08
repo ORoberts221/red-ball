@@ -13,9 +13,9 @@ class App extends Component {
     }
   }
 
-  setupCanvas(canvas){
-    canvas.width = document.body.clientWidth;
-    canvas.height = document.body.clientHeight;
+  setupCanvas(canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
 
   setupWorld(canvas) {
@@ -24,7 +24,7 @@ class App extends Component {
 
     var ball = new Ball(canvas.width / 2, canvas.height / 2);
     //create ground
-    var ground = Matter.Bodies.rectangle(0, canvas.height, canvas.width * 2, 20, { isStatic: true, render: { fillStyle: '#222' } });
+    var ground = Matter.Bodies.rectangle(0, canvas.height - 10, canvas.width * 2, 20, { isStatic: true, render: { fillStyle: '#222' } });
     //create drag constraint
     var dragConstraint = Drag(canvas, this.state.engine);
 
@@ -44,16 +44,22 @@ class App extends Component {
     var renderer = createRender(canvas, this.state.engine);
     this.run(renderer);
 
+    
+    window.addEventListener("resize", function () {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      this.run(renderer);
+    });
   }
 
   render() {
     return (
       <div className="container">
-        <div className="header">
+        <div className="header" style={{ zIndex: 10 }}>
           <h2>Red Ball</h2>
           <p>A small experiment with React and <a href="http://brm.io/matter-js/">Matter.js</a></p>
         </div>
-        <canvas id="canvas" className="canvas" width="500" height="500"></canvas>
+        <canvas id="canvas" className="canvas" style={{ zIndex: 1 }}></canvas>
         <div>
           <a href="">refresh</a><br /><br />
           <a href="https://github.com/ORoberts221/red-ball">source code</a><br /><br />
