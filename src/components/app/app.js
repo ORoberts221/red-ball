@@ -42,8 +42,13 @@ class App extends Component {
       <div className="container">
         <div>
           <h2>Red Ball</h2>
+          <p>A small experiment with React and <a href="http://brm.io/matter-js/">Matter.js</a></p>
         </div>
         <canvas id="canvas" className="canvas" width="500" height="500"></canvas>
+        <div>
+          <a href="">refresh</a><br /><br />
+          <a href="./">back</a>
+        </div>
       </div>
     );
   }
