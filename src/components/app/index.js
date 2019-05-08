@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Matter from 'matter-js';
 import Ball from '../../matter/bodies/ball';
 import Drag from '../../matter/constraints/drag';
-import createRender from '../../matter/render/render';
+import createRender from '../../matter/renderers/render';
 import './index.css';
 
 class App extends Component {
