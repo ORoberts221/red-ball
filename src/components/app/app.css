@@ -17,3 +17,23 @@
   position: relative;
   z-index: 10;
 }
+
+.sidebar {
+  position: absolute;
+  z-index: 10;
+  right: 100px;
+}
+
+.links {
+  text-align: left;
+  list-style-type: none;
+}
+
+.links li {
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.links a {
+  color: #222;
+}

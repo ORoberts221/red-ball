@@ -44,7 +44,7 @@ class App extends Component {
     var renderer = createRender(canvas, this.state.engine);
     this.run(renderer);
 
-    
+
     window.addEventListener("resize", function () {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -55,15 +55,23 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <div className="header" style={{ zIndex: 10 }}>
+        <div className="header">
           <h2>Red Ball</h2>
           <p>A small experiment with React and <a href="http://brm.io/matter-js/">Matter.js</a></p>
         </div>
-        <canvas id="canvas" className="canvas" style={{ zIndex: 1 }}></canvas>
-        <div>
-          <a href="">refresh</a><br /><br />
-          <a href="https://github.com/ORoberts221/red-ball">source code</a><br /><br />
-          <a href="../">back</a>
+        <canvas id="canvas" className="canvas"></canvas>
+        <div className="sidebar">
+          <ul className="links">
+            <li>
+              <a href="">refresh page</a>
+            </li>
+            <li>
+              <a href="https://github.com/ORoberts221/red-ball">source code</a>
+            </li>
+            {/* <li>
+              <a href="../">other projects</a>
+            </li> */}
+          </ul>
         </div>
       </div>
     );
