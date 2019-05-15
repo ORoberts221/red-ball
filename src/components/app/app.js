@@ -68,9 +68,9 @@ class App extends Component {
             <li>
               <a href="https://github.com/ORoberts221/red-ball">source code</a>
             </li>
-            {/* <li>
+            <li>
               <a href="../">other projects</a>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>
