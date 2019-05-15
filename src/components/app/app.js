@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Matter from 'matter-js';
+import Wall from '../../matter/bodies/wall';
 import Ball from '../../matter/bodies/ball';
 import Drag from '../../matter/constraints/drag';
 import createRender from '../../matter/renderers/render';
@@ -18,17 +19,29 @@ class App extends Component {
     canvas.height = window.innerHeight;
   }
 
-  setupWorld(canvas) {
-    //create ball
-    console.log("creating ball at");
+  setupContainer(canvas){
+    var containerW = canvas.width * 2;
+    var containerH = canvas.height * 2;
 
+    Matter.World.add(this.state.engine.world, [
+      new Wall(0, 0, containerW, 20), //Top
+      new Wall(0, 0, 5, containerH), //Left
+      new Wall(canvas.width, 0, 5, containerH), //Right
+      new Wall(0, canvas.height, containerW, 30) //Bottom
+    ]);
+  }
+
+  setupWorld(canvas) {
+    //create container
+    this.setupContainer(canvas);
+
+    //create ball
     var ball = new Ball(canvas.width / 2, canvas.height / 2);
-    //create ground
-    var ground = Matter.Bodies.rectangle(0, canvas.height - 10, canvas.width * 2, 20, { isStatic: true, render: { fillStyle: '#222' } });
+    
     //create drag constraint
     var dragConstraint = Drag(canvas, this.state.engine);
 
-    Matter.World.add(this.state.engine.world, [ball, ground, dragConstraint]);
+    Matter.World.add(this.state.engine.world, [ball, dragConstraint]);
   }
 
   run(renderer) {
@@ -39,7 +52,6 @@ class App extends Component {
   componentDidMount() {
     var canvas = document.getElementById("canvas");
     this.setupCanvas(canvas);
-
     this.setupWorld(canvas);
     var renderer = createRender(canvas, this.state.engine);
     this.run(renderer);
